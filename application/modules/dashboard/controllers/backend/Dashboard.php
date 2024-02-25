@@ -16,6 +16,7 @@ class Dashboard extends Backend{
   function index()
   {
     $this->template->set_title("Dashboard");
+//    var_dump($this->session->userdata());
     $this->template->view("index");
   }
 

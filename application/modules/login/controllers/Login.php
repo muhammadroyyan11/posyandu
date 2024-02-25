@@ -51,7 +51,7 @@ class Login extends Signin{
                 $token = $row->token;
                 $password_account = $row->password;
                 if (pass_decrypt($token,$password,$password_account)) {
-                  $session = array('id_user' => $row->id_user, "login_status" => true );
+                  $session = array('id_user' => $row->id_user, "login_status" => true, 'kader' => 'kader' );
                   $this->session->set_userdata($session);
 
                   $data = ['last_login'=> date("Y-m-d H:i"), "ip_address" => $this->input->ip_address()];

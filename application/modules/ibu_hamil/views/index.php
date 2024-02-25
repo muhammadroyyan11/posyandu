@@ -60,6 +60,7 @@
 							<th>Nama</th>
 							<th>Tempat lahir</th>
 							<th>Tgl lahir</th>
+							<th>Umur</th>
 							<th>Nama suami</th>
 							<th>Umur kandungan</th>
 							<th>Vitamin</th>

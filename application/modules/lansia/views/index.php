@@ -58,6 +58,7 @@
 							<th>Nama</th>
 							<th>Tempat lahir</th>
 							<th>Tgl lahir</th>
+							<th>Umur</th>
 							<th>Jenis kelamin</th>
 							<th>Pemeriksaan</th>
 							<th>Pemberian vitamin</th>

@@ -42,16 +42,19 @@ function json()
 
     $list = $this->model->get_datatables();
     $data = array();
+    $today = new DateTime();
     foreach ($list as $row) {
+        $diff = $today->diff(new DateTime($row->tgl_lahir));
         $rows = array();
                 $rows[] = $row->id;
                 $rows[] = $row->nama;
                 $rows[] = $row->tempat_lahir;
                 $rows[] = date("d-m-Y",  strtotime($row->tgl_lahir));
+                $rows[] = $diff->y . ' Th';
                 $rows[] = $row->nama_suami;
                 $rows[] = $row->umur_kandungan;
                 $rows[] = $row->vitamin;
-                $rows[] = $row->berat_badan;
+                $rows[] = $row->berat_badan . 'Kg';
                 $rows[] = date("d-m-Y H:i",  strtotime($row->createdAt));
                 $rows[] = date("d-m-Y H:i",  strtotime($row->updatedAt));
         

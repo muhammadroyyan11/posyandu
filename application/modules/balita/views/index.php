@@ -6,8 +6,9 @@
         <div class="card-header">
           <h4 class="card-title"><?=ucwords($title_module)?></h4>
           <div class="pull-right">
-                          <a href="<?=url("balita/add")?>" class="btn btn-success btn-flat"><i class="fa fa-file btn-icon-prepend"></i> Add</a>
-                                      <button type="button" id="filter-show" class="btn btn-primary btn-flat"><i class="mdi mdi-backup-restore btn-icon-prepend"></i> Filter</button>
+                          <a href="<?=url("balita/add")?>" class="btn btn-secondary btn-flat"><i class="fa fa-file btn-icon-prepend"></i> Add</a>
+                          <button class="btn btn-success btn-flat" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-file btn-icon-prepend"></i> Export</button>
+                          <button type="button" id="filter-show" class="btn btn-primary btn-flat"><i class="mdi mdi-backup-restore btn-icon-prepend"></i> Filter</button>
                       </div>
         </div>
         <div class="card-content">
@@ -64,6 +65,7 @@
 							<th>Nama</th>
 							<th>Tempat lahir</th>
 							<th>Tgl lahir</th>
+							<th>Umur</th>
 							<th>Nama ayah</th>
 							<th>Nama ibu</th>
 							<th>Catatan</th>
@@ -83,6 +85,46 @@
   </div>
 </section>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filter Tanggal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= site_url('cpanel/balita/export/')?>" method="post" accept-charset="utf-8">
+                <div class="modal-body">
+
+                        <div class="row form-group">
+                            <label class="col-lg-3 text-lg-right" for="tanggal">Tanggal :</label>
+                            <div class="col-lg-8">
+                                <div class="input-group">
+                                    <input value="" name="tanggal" id="tanggalrange" type="text"
+                                        class="form-control" placeholder="Periode Tanggal">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <br>
+                                <p style="color : #ea5455 !important; font-size: smaller;">Note : Di Anjurkan mendownload
+                                    file laporan pada PC / Laptop</p>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Download</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
 

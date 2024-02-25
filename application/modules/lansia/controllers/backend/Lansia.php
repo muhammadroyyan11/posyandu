@@ -47,13 +47,16 @@ class Lansia extends Backend
       }
 
       $list = $this->model->get_datatables();
+      $today = new DateTime();
       $data = array();
       foreach ($list as $row) {
+        $diff = $today->diff(new DateTime($row->tgl_lahir));
         $rows = array();
         $rows[] = $row->id;
         $rows[] = $row->nama;
         $rows[] = $row->tempat_lahir;
         $rows[] = date("d-m-Y",  strtotime($row->tgl_lahir));
+        $rows[] = $diff->y . ' Th';
         $rows[] = $row->jenis_kelamin;
         $rows[] = $row->pemeriksaan;
         $rows[] = $row->pemberian_vitamin;
@@ -297,13 +300,13 @@ class Lansia extends Backend
     // Buat header tabel nya pada baris ke 3
     $sheet->setCellValue('A3', "NO ID");
     $sheet->setCellValue('B3', "Nama");
-    $sheet->setCellValue('H3', "Tempat Lahir");
-    $sheet->setCellValue('I3', "Tanggal lahir");
-    $sheet->setCellValue('J3', "Jenis Kelamin");
-    $sheet->setCellValue('K3', 'Pemeriksaan');
-    $sheet->setCellValue('L3', 'Pemberian Vitamin');
-    $sheet->setCellValue('M3', 'Email pelanggan');
-    $sheet->setCellValue('N3', 'Kader');
+    $sheet->setCellValue('C3', "Tempat Lahir");
+    $sheet->setCellValue('D3', "Tanggal lahir");
+    $sheet->setCellValue('E3', "Umur");
+    $sheet->setCellValue('F3', "Jenis Kelamin");
+    $sheet->setCellValue('G3', 'Pemeriksaan');
+    $sheet->setCellValue('H3', 'Pemberian Vitamin');
+    $sheet->setCellValue('I3', 'Kade');
 
     // Apply style header yang telah kita buat tadi ke masing-masing kolom header
     $sheet->getStyle('A3')->applyFromArray($style_col);
@@ -315,31 +318,23 @@ class Lansia extends Backend
     $sheet->getStyle('G3')->applyFromArray($style_col);
     $sheet->getStyle('H3')->applyFromArray($style_col);
     $sheet->getStyle('I3')->applyFromArray($style_col);
-    $sheet->getStyle('J3')->applyFromArray($style_col);
-    $sheet->getStyle('K3')->applyFromArray($style_col);
-    $sheet->getStyle('L3')->applyFromArray($style_col);
-    $sheet->getStyle('M3')->applyFromArray($style_col);
-    $sheet->getStyle('N3')->applyFromArray($style_col);
 
     //GET DATA
-    $rfqData = $this->base->getExport(['mulai' => $mulai, 'akhir' => $akhir])->result();
+    $DataLansia = $this->base->getExport(['mulai' => $mulai, 'akhir' => $akhir])->result();
+    $today = new DateTime();
     $no = 1; // Untuk penomoran tabel, di awal set dengan 1
     $numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
-    foreach ($rfqData as $data) { // Lakukan looping pada variabel siswa
+    foreach ($DataLansia as $data) { // Lakukan looping pada variabel siswa
+      $diff = $today->diff(new DateTime($data->tgl_lahir));
       $sheet->setCellValue('A' . $numrow, $data->id);
-      $sheet->setCellValue('B' . $numrow, $data->deadline);
-      $sheet->setCellValue('C' . $numrow, $data->sbu);
-      $sheet->setCellValue('D' . $numrow, $data->npp);
-      $sheet->setCellValue('E' . $numrow, $data->no_penawaran);
-      $sheet->setCellValue('F' . $numrow, $data->status_gagal);
-      $sheet->setCellValue('G' . $numrow, $data->status_penawaran);
-      $sheet->setCellValue('H' . $numrow, $data->pelanggan);
-      $sheet->setCellValue('I' . $numrow, $data->nama_perusahaan);
-      $sheet->setCellValue('J' . $numrow, $data->nama_proyek);
-      $sheet->setCellValue('K' . $numrow, $data->nama_owner);
-      $sheet->setCellValue('L' . $numrow, $data->untuk_perhatian);
-      $sheet->setCellValue('M' . $numrow, $data->email_pelanggan);
-      $sheet->setCellValue('N' . $numrow, $data->no_hp);
+      $sheet->setCellValue('B' . $numrow, $data->nama);
+      $sheet->setCellValue('C' . $numrow, $data->tempat_lahir);
+      $sheet->setCellValue('D' . $numrow, $data->tgl_lahir);
+      $sheet->setCellValue('E' . $numrow, $diff->y . ' Tahun'); //UMUR
+      $sheet->setCellValue('F' . $numrow, $data->jenis_kelamin);
+      $sheet->setCellValue('G' . $numrow, $data->pemeriksaan);
+      $sheet->setCellValue('H' . $numrow, $data->pemberian_vitamin);
+      $sheet->setCellValue('I' . $numrow, 'nama kader');
 
       // Apply style row yang telah kita buat tadi ke masing-masing baris (isi tabel)
       $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
@@ -351,11 +346,6 @@ class Lansia extends Backend
       $sheet->getStyle('G' . $numrow)->applyFromArray($style_row);
       $sheet->getStyle('H' . $numrow)->applyFromArray($style_row);
       $sheet->getStyle('I' . $numrow)->applyFromArray($style_row);
-      $sheet->getStyle('J' . $numrow)->applyFromArray($style_row);
-      $sheet->getStyle('K' . $numrow)->applyFromArray($style_row);
-      $sheet->getStyle('L' . $numrow)->applyFromArray($style_row);
-      $sheet->getStyle('M' . $numrow)->applyFromArray($style_row);
-      $sheet->getStyle('N' . $numrow)->applyFromArray($style_row);
 
       $no++; // Tambah 1 setiap kali looping
       $numrow++; // Tambah 1 setiap kali looping
@@ -370,26 +360,6 @@ class Lansia extends Backend
     $sheet->getColumnDimension('G')->setWidth(50); // Set width kolom E
     $sheet->getColumnDimension('H')->setWidth(50); // Set width kolom E
     $sheet->getColumnDimension('I')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('J')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('K')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('L')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('M')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('N')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('O')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('P')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('Q')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('R')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('S')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('T')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('U')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('V')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('W')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('X')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('Y')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('Z')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('AA')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('AB')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('AC')->setWidth(50); // Set width kolom E
 
     // Set height semua kolom menjadi auto (mengikuti height isi dari kolommnya, jadi otomatis)
     $sheet->getDefaultRowDimension()->setRowHeight(-1);

@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit22fdf944f969c99b68e4ddd02b5aa605
 {
     public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     );
 
@@ -14,6 +15,10 @@ class ComposerStaticInit22fdf944f969c99b68e4ddd02b5aa605
         'Z' => 
         array (
             'ZipStream\\' => 10,
+        ),
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
         ),
         'P' => 
         array (
@@ -24,6 +29,7 @@ class ComposerStaticInit22fdf944f969c99b68e4ddd02b5aa605
         ),
         'M' => 
         array (
+            'MyCLabs\\Enum\\' => 13,
             'Matrix\\' => 7,
         ),
         'C' => 
@@ -36,6 +42,10 @@ class ComposerStaticInit22fdf944f969c99b68e4ddd02b5aa605
         'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
         'Psr\\SimpleCache\\' => 
         array (
@@ -53,6 +63,10 @@ class ComposerStaticInit22fdf944f969c99b68e4ddd02b5aa605
         'PhpOffice\\PhpSpreadsheet\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
+        'MyCLabs\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
         'Matrix\\' => 
         array (
@@ -76,6 +90,7 @@ class ComposerStaticInit22fdf944f969c99b68e4ddd02b5aa605
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
