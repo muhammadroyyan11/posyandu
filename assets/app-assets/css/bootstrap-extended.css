@@ -1647,7 +1647,7 @@ body[data-col="1-column"] .header-navbar.floating-nav {
     border: none;
     box-shadow: none; }
   .card .card-header {
-    display: flex;
+    /*display: flex;*/
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;

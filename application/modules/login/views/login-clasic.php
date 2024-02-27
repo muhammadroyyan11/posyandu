@@ -38,7 +38,15 @@
 
 </head>
 <!-- END: Head-->
-
+<style>
+    img {
+        width: 35%;
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 1-column  navbar-floating footer-static bg-full-screen-image  blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-col="1-column" data-layout="semi-dark-layout">
@@ -55,17 +63,18 @@
           <div class="col-xl-8 col-11 d-flex justify-content-center">
             <div class="card bg-authentication rounded-0 mb-0">
               <div class="row m-0">
-                <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
-                  <img src="<?= base_url() ?>assets/app-assets/images/pages/login.png" alt="branding logo">
-                </div>
-                <div class="col-lg-6 col-12 p-0">
+<!--                <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">-->
+<!--                  <img src="--><?php //= base_url() ?><!--assets/app-assets/images/pages/login.png" alt="branding logo">-->
+<!--                </div>-->
+                <div class="col-lg-12 col-12 p-0">
                   <div class="card rounded-0 mb-0 px-2">
                     <div class="card-header pb-1">
                       <div class="card-title">
-                        <h4 class="mb-0">Login</h4>
+                          <center><h4 class="mb-0" >Login</h4></center>
                       </div>
                     </div>
-                    <p class="px-2">Welcome back, please login to your account.</p>
+                      <center><p class="px-2">Welcome back, please login to your account.</p></center>
+                      <img src="<?= base_url()?>assets/img/logo.png" alt="Logo" >
                     <div class="card-content">
                       <div class="card-body pt-1">
                         <?= $this->session->flashdata('pesan'); ?>
@@ -92,7 +101,7 @@
                     </div>
                     <div class="login-footer">
                       <div class="divider">
-                        <div class="divider-text">&copy; desa</div>
+                        <div class="divider-text">&copy; Posyandu Kabupaten Dongala</div>
                       </div>
                     </div>
                   </div>
