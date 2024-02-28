@@ -65,6 +65,7 @@
 							<th>Nama</th>
 							<th>Tempat lahir</th>
 							<th>Tgl lahir</th>
+							<th>Jenis Kelamin</th>
 							<th>Umur</th>
 							<th>Nama ayah</th>
 							<th>Nama ibu</th>
@@ -153,6 +154,7 @@
                                           data.nama = $("#nama").val();
                                                         data.tempat_lahir = $("#tempat_lahir").val();
                                                         data.tgl_lahir = $("#tgl_lahir").val();
+                                                        data.jenis_kelamin = $("#jenis_kelamin").val();
                                                         data.nama_ayah = $("#nama_ayah").val();
                                                         data.nama_ibu = $("#nama_ibu").val();
                                                         data.catatan = $("#catatan").val();
@@ -232,6 +234,7 @@
                         $("#nama").val("");
                   $("#tempat_lahir").val("");
                   $("#tgl_lahir").val("");
+                  $("#jenis_kelamin").val("");
                   $("#nama_ayah").val("");
                   $("#nama_ibu").val("");
                   $("#catatan").val("");

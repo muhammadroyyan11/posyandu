@@ -40,7 +40,7 @@
 <!-- END: Head-->
 <style>
     img {
-        width: 35%;
+        width: 30%;
         height: auto;
         display: block;
         margin-left: auto;
@@ -73,7 +73,7 @@
                           <center><h4 class="mb-0" >Login</h4></center>
                       </div>
                     </div>
-                      <center><p class="px-2">Welcome back, please login to your account.</p></center>
+                      <center><p class="px-2">Desa Labuan Panimba Kec. Labuan Kab. Donggala</p></center>
                       <img src="<?= base_url()?>assets/img/logo.png" alt="Logo" >
                     <div class="card-content">
                       <div class="card-body pt-1">

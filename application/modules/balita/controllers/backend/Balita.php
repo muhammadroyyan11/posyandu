@@ -53,6 +53,7 @@ function json()
                 $rows[] = $row->nama;
                 $rows[] = $row->tempat_lahir;
                 $rows[] = date("d-m-Y",  strtotime($row->tgl_lahir));
+                $rows[] = $row->jenis_kelamin;
                 $rows[] = $diff->y . ' Th';
                 $rows[] = $row->nama_ayah;
                 $rows[] = $row->nama_ibu;
@@ -109,6 +110,7 @@ function detail($id)
           "nama" => $row->nama,
           "tempat_lahir" => $row->tempat_lahir,
           "tgl_lahir" => $row->tgl_lahir,
+          "jenis_kelamin" => $row->jenis_kelamin,
           "nama_ayah" => $row->nama_ayah,
           "nama_ibu" => $row->nama_ibu,
           "catatan" => $row->catatan,
@@ -129,6 +131,7 @@ function add()
                   'nama' => set_value("nama"),
                   'tempat_lahir' => set_value("tempat_lahir"),
                   'tgl_lahir' => set_value("tgl_lahir"),
+                  'jenis_kelamin' => set_value("jenis_kelamin"),
                   'nama_ayah' => set_value("nama_ayah"),
                   'nama_ibu' => set_value("nama_ibu"),
                   'catatan' => set_value("catatan"),
@@ -150,6 +153,7 @@ function add_action()
     $this->form_validation->set_rules("nama","* Nama","trim|xss_clean|required");
     $this->form_validation->set_rules("tempat_lahir","* Tempat lahir","trim|xss_clean|required");
     $this->form_validation->set_rules("tgl_lahir","* Tgl lahir","trim|xss_clean|required");
+    $this->form_validation->set_rules("jenis_kelamin","* Jenis Kelamin","trim|xss_clean|required");
     $this->form_validation->set_rules("nama_ayah","* Nama ayah","trim|xss_clean|required");
     $this->form_validation->set_rules("nama_ibu","* Nama ibu","trim|xss_clean|required");
     $this->form_validation->set_rules("catatan","* Catatan","trim|xss_clean");
@@ -161,6 +165,7 @@ function add_action()
       $save_data['nama'] = $this->input->post('nama',true);
       $save_data['tempat_lahir'] = $this->input->post('tempat_lahir',true);
       $save_data['tgl_lahir'] = date("Y-m-d",  strtotime($this->input->post('tgl_lahir', true)));
+      $save_data['jenis_kelamin'] = $this->input->post('jenis_kelamin',true);
       $save_data['nama_ayah'] = $this->input->post('nama_ayah',true);
       $save_data['nama_ibu'] = $this->input->post('nama_ibu',true);
       $save_data['catatan'] = $this->input->post('catatan',true);
@@ -191,6 +196,7 @@ function update($id)
                   'nama' => set_value("nama", $row->nama),
                   'tempat_lahir' => set_value("tempat_lahir", $row->tempat_lahir),
                   'tgl_lahir' => $row->tgl_lahir == "" ? "":date("Y-m-d",  strtotime($row->tgl_lahir)),
+                  'jenis_kelamin' => set_value("jenis_kelamin", $row->jenis_kelamin),
                   'nama_ayah' => set_value("nama_ayah", $row->nama_ayah),
                   'nama_ibu' => set_value("nama_ibu", $row->nama_ibu),
                   'catatan' => set_value("catatan", $row->catatan),
@@ -215,6 +221,7 @@ function update_action($id)
     $this->form_validation->set_rules("nama","* Nama","trim|xss_clean|required");
     $this->form_validation->set_rules("tempat_lahir","* Tempat lahir","trim|xss_clean|required");
     $this->form_validation->set_rules("tgl_lahir","* Tgl lahir","trim|xss_clean|required");
+    $this->form_validation->set_rules("jenis_kelamin","* Jenis Kelamin","trim|xss_clean|required");
     $this->form_validation->set_rules("nama_ayah","* Nama ayah","trim|xss_clean|required");
     $this->form_validation->set_rules("nama_ibu","* Nama ibu","trim|xss_clean|required");
     $this->form_validation->set_rules("catatan","* Catatan","trim|xss_clean");
@@ -226,6 +233,7 @@ function update_action($id)
       $save_data['nama'] = $this->input->post('nama',true);
       $save_data['tempat_lahir'] = $this->input->post('tempat_lahir',true);
       $save_data['tgl_lahir'] = date("Y-m-d",  strtotime($this->input->post('tgl_lahir', true)));
+      $save_data['jenis_kelamin'] = $this->input->post('jenis_kelamin',true);
       $save_data['nama_ayah'] = $this->input->post('nama_ayah',true);
       $save_data['nama_ibu'] = $this->input->post('nama_ibu',true);
       $save_data['catatan'] = $this->input->post('catatan',true);
@@ -305,7 +313,7 @@ public function export()
         'left' => ['borderStyle'  => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
       ]
     ];
-    $sheet->setCellValue('A1', "Data Monitor RFQ");
+    $sheet->setCellValue('A1', "DATA KEGIATAN POSYANDU IBU HAMIL");
     $sheet->mergeCells('A1:E1');
     $sheet->getStyle('A1')->getFont()->setBold(true);
 
@@ -338,15 +346,15 @@ public function export()
     //GET DATA
     $DataLansia = $this->base->getExport(['mulai' => $mulai, 'akhir' => $akhir])->result();
     $today = new DateTime();
-    $no = 1; // Untuk penomoran tabel, di awal set dengan 1
-    $numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
-    foreach ($DataLansia as $data) { // Lakukan looping pada variabel siswa
+    $no = 1;
+    $numrow = 4;
+    foreach ($DataLansia as $data) {
       $diff = $today->diff(new DateTime($data->tgl_lahir));
       $sheet->setCellValue('A' . $numrow, $data->id);
       $sheet->setCellValue('B' . $numrow, $data->nama);
       $sheet->setCellValue('C' . $numrow, $data->tempat_lahir);
       $sheet->setCellValue('D' . $numrow, $data->tgl_lahir);
-      $sheet->setCellValue('E' . $numrow, $diff->y . ' Tahun'); //UMUR
+      $sheet->setCellValue('E' . $numrow, $diff->y . ' Tahun');
       $sheet->setCellValue('F' . $numrow, $data->nama_ayah);
       $sheet->setCellValue('G' . $numrow, $data->nama_ibu);
       $sheet->setCellValue('H' . $numrow, $data->catatan);
@@ -371,17 +379,17 @@ public function export()
       $numrow++; // Tambah 1 setiap kali looping
     }
     // Set width kolom
-    $sheet->getColumnDimension('A')->setWidth(20); // Set width kolom A
-    $sheet->getColumnDimension('B')->setWidth(30); // Set width kolom B
-    $sheet->getColumnDimension('C')->setWidth(20); // Set width kolom C
-    $sheet->getColumnDimension('D')->setWidth(50); // Set width kolom D
-    $sheet->getColumnDimension('E')->setWidth(80); // Set width kolom D
-    $sheet->getColumnDimension('F')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('G')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('H')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('I')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('J')->setWidth(50); // Set width kolom E
-    $sheet->getColumnDimension('K')->setWidth(50); // Set width kolom E
+    $sheet->getColumnDimension('A')->setWidth(20);
+    $sheet->getColumnDimension('B')->setWidth(30);
+    $sheet->getColumnDimension('C')->setWidth(20);
+    $sheet->getColumnDimension('D')->setWidth(50);
+    $sheet->getColumnDimension('E')->setWidth(80);
+    $sheet->getColumnDimension('F')->setWidth(50);
+    $sheet->getColumnDimension('G')->setWidth(50);
+    $sheet->getColumnDimension('H')->setWidth(50);
+    $sheet->getColumnDimension('I')->setWidth(50);
+    $sheet->getColumnDimension('J')->setWidth(50);
+    $sheet->getColumnDimension('K')->setWidth(50);
 
     // Set height semua kolom menjadi auto (mengikuti height isi dari kolommnya, jadi otomatis)
     $sheet->getDefaultRowDimension()->setRowHeight(-1);

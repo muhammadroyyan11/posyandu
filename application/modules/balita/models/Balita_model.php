@@ -16,9 +16,9 @@ class Balita_model extends MY_Model{
 
   private $table        = "balita";
   private $primary_key  = "id";
-  private $column_order = array('id', 'nama', 'tempat_lahir', 'tgl_lahir', 'nama_ayah', 'nama_ibu', 'catatan', 'berat_badan', 'tinggi_badan', 'createdAt', 'updatedAt');
+  private $column_order = array('id', 'nama', 'tempat_lahir', 'tgl_lahir', 'jenis_kelamin', 'nama_ayah', 'nama_ibu', 'catatan', 'berat_badan', 'tinggi_badan', 'createdAt', 'updatedAt');
   private $order        = array('balita.id'=>"DESC");
-  private $select       = "balita.id,balita.id,balita.nama,balita.tempat_lahir,balita.tgl_lahir,balita.nama_ayah,balita.nama_ibu,balita.catatan,balita.berat_badan,balita.tinggi_badan,balita.createdAt,balita.updatedAt";
+  private $select       = "balita.id,balita.id,balita.nama,balita.tempat_lahir,balita.tgl_lahir,balita.jenis_kelamin,balita.nama_ayah,balita.nama_ibu,balita.catatan,balita.berat_badan,balita.tinggi_badan,balita.createdAt,balita.updatedAt";
 
 public function __construct()
 	{
